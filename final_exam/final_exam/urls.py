@@ -16,12 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from main.views import BookViewSet, JournalViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Paths to obtain, refresh and verify JSON web token for JWT authorization
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify')
+    path('auth/login', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
+    path('books/', BookViewSet.as_view({'post': 'create'})),
+    path('books/<int:book_id>/', BookViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
+
+    path('journals/', JournalViewSet.as_view({'post': 'create'})),
+    path('journals/<int:journal_id>/', JournalViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}))
 ]

@@ -29,7 +29,7 @@ class Book(BookJournalBase):
 
 # Journal model.
 class Journal(BookJournalBase):
-    type = models.CharField(max_length=10, choices=((1, 'Bullet'), (2, 'Food'), (3, 'Travel'), (4, 'Sport')))
+    type = models.CharField(max_length=10, choices=(('Bullet', 1), ('Food', 2), ('Travel', 3), ('Sport', 4)))
     publisher = models.TextField(max_length=100)
 
     class Meta:
@@ -39,4 +39,4 @@ class Journal(BookJournalBase):
         ordering = ['id']
 
     def __str__(self):
-        return f'{self.id}: {self.name}'
+        return f'{self.id}: {self.name}, {self.type}'
